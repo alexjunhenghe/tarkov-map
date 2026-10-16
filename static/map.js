@@ -74,8 +74,17 @@
         );
     }
 
+    function maxViewWidth() {
+        // The stage is usually wider than the basemap's native aspect,
+        // so fitting the full height can require a view wider than
+        // FULL.w (with empty margin at the sides). Clamping the width
+        // to FULL.w cropped the map's top and bottom and made it
+        // impossible to zoom out to the whole floor.
+        return Math.max(FULL.w, FULL.h * stageAspect());
+    }
+
     function setView(cx, cy, w) {
-        view.w = Math.max(40, Math.min(FULL.w, w));
+        view.w = Math.max(40, Math.min(maxViewWidth(), w));
         view.h = view.w / stageAspect();
         view.x = cx - view.w / 2;
         view.y = cy - view.h / 2;
@@ -85,7 +94,9 @@
 
     function fitRect(rect, padRatio) {
         const pad = Math.max(rect.w, rect.h) * (padRatio ?? 0.05);
-        const w = rect.w + pad * 2;
+        // Fit both axes: the padded rect's height must fit too, which
+        // on a wide stage means a wider view than the rect itself.
+        const w = Math.max(rect.w + pad * 2, (rect.h + pad * 2) * stageAspect());
         setView(rect.x + rect.w / 2, rect.y + rect.h / 2, w);
     }
 
@@ -302,14 +313,18 @@
     const pointers = new Map();
     let lastPinchDist = null;
 
+    // NOTE: no setPointerCapture on the stage. Capturing the pointer
+    // retargets every following pointer event (including the click) to
+    // the stage element, so clicks never reached the markers. Moves and
+    // ups are tracked on window instead, which also keeps pans alive
+    // when the pointer leaves the stage.
     stage.addEventListener("pointerdown", (event) => {
         pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
-        stage.setPointerCapture(event.pointerId);
         dragMoved = false;
         lastPinchDist = null;
     });
 
-    stage.addEventListener("pointermove", (event) => {
+    window.addEventListener("pointermove", (event) => {
         if (!pointers.has(event.pointerId)) return;
         const prev = pointers.get(event.pointerId);
         pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
@@ -345,11 +360,11 @@
         if (pointers.size < 2) lastPinchDist = null;
         scheduleClusterRebuild();
     }
-    stage.addEventListener("pointerup", endPointer);
-    stage.addEventListener("pointercancel", endPointer);
+    window.addEventListener("pointerup", endPointer);
+    window.addEventListener("pointercancel", endPointer);
 
     function zoomAt(svgPoint, factor) {
-        const newW = Math.max(40, Math.min(FULL.w, view.w * factor));
+        const newW = Math.max(40, Math.min(maxViewWidth(), view.w * factor));
         const ratio = newW / view.w;
         view.x = svgPoint.x - (svgPoint.x - view.x) * ratio;
         view.y = svgPoint.y - (svgPoint.y - view.y) * ratio;

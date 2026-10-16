@@ -628,6 +628,13 @@
   .marker {
     cursor: pointer;
   }
+  .marker:hover .core {
+    stroke: #ffffff;
+    stroke-width: 2.4;
+  }
+  .marker:hover .hit {
+    fill: #ffffff1f;
+  }
   .marker .hit {
     fill: transparent;
   }
