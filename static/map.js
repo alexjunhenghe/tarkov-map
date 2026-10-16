@@ -37,16 +37,45 @@
         transit: "Transit",
         loot: "Loot container",
     };
-    const MARKER_R = {
-        extract: 7,
-        transit: 6,
-        boss: 7,
-        hazard: 5.5,
-        switch: 4.5,
-        lock: 4.5,
-        pmc_spawn: 4.5,
-        scav_spawn: 4.5,
-        loot: 3,
+    // Teardrop pin: tip at the marker point, head centered at (0, -15).
+    const PIN_D =
+        "M0 0 C -4.6 -6.8 -8.5 -9.8 -8.5 -15 A 8.5 8.5 0 1 1 8.5 -15 C 8.5 -9.8 4.6 -6.8 0 0 Z";
+    // White pictograms drawn in a -5..5 box at the pin head. Stroke
+    // icons use class pin-icon; filled ones pin-icon-fill.
+    const PIN_ICONS = {
+        extract: [
+            ["path", { d: "M-3.4 3.4 L3.4 -3.4 M-1 -3.4 H3.4 V1" }],
+        ],
+        transit: [
+            ["path", { d: "M-4.2 -1.9 H2.8 M0.9 -4.1 L3.1 -1.9 L0.9 0.3" }],
+            ["path", { d: "M4.2 1.9 H-2.8 M-0.9 4.1 L-3.1 1.9 L-0.9 -0.3" }],
+        ],
+        boss: [
+            ["polygon", { class: "pin-icon-fill", points: "0,-4.6 1.35,-1.6 4.4,-1.45 2.1,0.95 3,4.1 0,2.3 -3,4.1 -2.1,0.95 -4.4,-1.45 -1.35,-1.6" }],
+        ],
+        lock: [
+            ["rect", { x: -3.1, y: -0.6, width: 6.2, height: 5.4, rx: 1 }],
+            ["path", { d: "M-2 -0.6 V-2 A2 2 0 0 1 2 -2 V-0.6" }],
+        ],
+        switch: [
+            ["polygon", { class: "pin-icon-fill", points: "1.6,-4.6 -2.9,0.9 -0.7,0.9 -1.6,4.6 2.9,-0.9 0.7,-0.9" }],
+        ],
+        hazard: [
+            ["path", { d: "M0 -4.2 L4.2 3.6 H-4.2 Z M0 -1.2 V0.9" }],
+            ["circle", { class: "pin-icon-fill", cy: 2.4, r: 0.85 }],
+        ],
+        pmc_spawn: [
+            ["circle", { class: "pin-icon-fill", cy: -1.9, r: 1.8 }],
+            ["path", { class: "pin-icon-fill", d: "M-3.6 3.8 A 3.9 3.9 0 0 1 3.6 3.8 Z" }],
+        ],
+        scav_spawn: [
+            ["circle", { class: "pin-icon-fill", cy: -1.9, r: 1.8 }],
+            ["path", { class: "pin-icon-fill", d: "M-3.6 3.8 A 3.9 3.9 0 0 1 3.6 3.8 Z" }],
+        ],
+        loot: [
+            ["rect", { x: -3.3, y: -2.8, width: 6.6, height: 5.6 }],
+            ["path", { d: "M-3.3 -2.8 L3.3 2.8 M3.3 -2.8 L-3.3 2.8" }],
+        ],
     };
 
     const vb = svg.viewBox.baseVal;
@@ -313,15 +342,20 @@
             class: `marker cat-${marker.category}${clusterCount ? " is-cluster" : ""}`,
             transform: `translate(${marker.sx} ${marker.sy})`,
         });
-        g.appendChild(el("circle", { class: "hit", r: 11 }));
-        g.appendChild(
-            el("circle", { class: "core", r: clusterCount ? 8 : MARKER_R[marker.category] || 4 }),
-        );
+        g.appendChild(el("ellipse", { class: "pin-shadow", cx: 0, cy: 0.8, rx: 5.2, ry: 1.9 }));
+        g.appendChild(el("circle", { class: "hit", cx: 0, cy: -13, r: 12.5 }));
         if (clusterCount) {
-            const text = el("text", { class: "cluster-count", y: 3.5, "text-anchor": "middle" });
+            g.appendChild(el("circle", { class: "badge", cx: 0, cy: -13, r: 10 }));
+            const text = el("text", { class: "cluster-count", y: -9.6, "text-anchor": "middle" });
             text.textContent = clusterCount;
             g.appendChild(text);
         } else {
+            g.appendChild(el("path", { class: "pin", d: PIN_D }));
+            const icon = el("g", { class: "pin-icon", transform: "translate(0 -15)" });
+            for (const [tag, attrs] of PIN_ICONS[marker.category] || PIN_ICONS.loot) {
+                icon.appendChild(el(tag, attrs));
+            }
+            g.appendChild(icon);
             const title = el("title");
             title.textContent = marker.name;
             g.appendChild(title);
