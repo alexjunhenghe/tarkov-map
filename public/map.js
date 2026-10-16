@@ -161,6 +161,29 @@
             fitRect(gameRectToSvg(-222, -327, 120, 218, snapshot.transform), 0.08);
             return;
         }
+        // Interior floors: the SVG floor groups include wide empty
+        // aprons and ramps around the building, so fitting the raw
+        // artwork bounds leaves the actual mall tiny in the middle of
+        // the pane — worst on wide screens. The floor's own labels
+        // (store and area names) tile the usable interior, so fit
+        // those, expanded to take in the walls and the markers just
+        // outside them.
+        const floorLabels = (snapshot.labels || []).filter((l) => l.floor === floor);
+        if (floorLabels.length) {
+            let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+            for (const l of floorLabels) {
+                minX = Math.min(minX, l.sx);
+                minY = Math.min(minY, l.sy);
+                maxX = Math.max(maxX, l.sx);
+                maxY = Math.max(maxY, l.sy);
+            }
+            const M = 70;
+            fitRect(
+                { x: minX - M, y: minY - M, w: maxX - minX + 2 * M, h: maxY - minY + 2 * M },
+                0.04,
+            );
+            return;
+        }
         const group = document.getElementById(FLOOR_GROUPS[floor]);
         if (group) {
             try {
