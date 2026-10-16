@@ -102,6 +102,7 @@
             "viewBox",
             `${view.x} ${view.y} ${view.w} ${view.h}`,
         );
+        svg.dataset.zoom = view.w > 820 ? "far" : "near";
     }
 
     function maxViewWidth() {

@@ -703,6 +703,79 @@
   .map-stage svg #Ground_Level .building {
     fill: #494f57;
   }
+  .map-stage svg .land path {
+    fill: #55773f;
+  }
+  .map-stage svg .trees path {
+    fill: #2f5233;
+  }
+  .map-stage svg .rock path {
+    fill: #8e8d84;
+  }
+  .map-stage svg .water path {
+    fill: #38618f;
+  }
+  .map-stage svg .cement path {
+    fill: #aeb2b5;
+  }
+  .map-stage svg .tarmac path {
+    fill: #5f666d;
+  }
+  .map-stage svg .gravel path {
+    fill: #8a6f4d;
+  }
+  .map-stage svg .wood path {
+    fill: #6e4f2a;
+  }
+  .map-stage svg .building path {
+    fill: #43484e;
+  }
+  .map-stage svg .structure path {
+    fill: #555a5e;
+  }
+  .map-stage svg .floor path {
+    fill: #7d838a;
+  }
+  .map-stage svg .locked path {
+    fill: #4a5563;
+  }
+  .map-stage svg .stairs path {
+    fill: #e8b93c;
+  }
+  .map-stage svg #First_Floor .floor path {
+    fill: #82888f;
+  }
+  .map-stage svg #First_Floor .building path {
+    fill: #33373d;
+  }
+  .map-stage svg #Second_Floor .floor path {
+    fill: #787e86;
+  }
+  .map-stage svg #Second_Floor .building path {
+    fill: #2e3238;
+  }
+  .map-stage svg #Ground_Level .building path {
+    fill: #494f57;
+  }
+  .map-stage svg .road_tarmac path {
+    stroke: #a7adb3;
+  }
+  .map-stage svg .road_gravel path {
+    stroke: #96754a;
+  }
+  .map-stage svg .railroad path {
+    stroke: #8a5a40;
+  }
+  .map-stage svg .powerline path {
+    stroke: #e6c93f;
+  }
+  .map-stage svg .fence path {
+    stroke: #a8bf9f;
+  }
+  .map-stage svg[data-zoom="far"] .map-label {
+    font-size: 11.5px;
+    opacity: .72;
+  }
   .marker {
     cursor: pointer;
   }
