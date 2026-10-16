@@ -33,6 +33,8 @@
 .map-note{color:#96938c;font-size:12px;margin-top:12px}
 /* Markers drawn into the basemap SVG */
 .marker{cursor:pointer}
+.marker:hover .core{stroke:#ffffff;stroke-width:2.4}
+.marker:hover .hit{fill:#ffffff1f}
 .marker .hit{fill:transparent}
 .marker .core{stroke:#0b0b0c;stroke-width:1.2}
 .marker.cat-extract .core{fill:#00e599}
