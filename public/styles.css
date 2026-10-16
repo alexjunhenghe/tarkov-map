@@ -171,6 +171,9 @@
   .visible {
     visibility: visible;
   }
+  .fixed {
+    position: fixed;
+  }
   .static {
     position: static;
   }
@@ -200,6 +203,9 @@
   }
   .grid {
     display: grid;
+  }
+  .inline {
+    display: inline;
   }
   .inline-flex {
     display: inline-flex;
@@ -288,9 +294,16 @@
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+  .ring {
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
   .outline {
     outline-style: var(--tw-outline-style);
     outline-width: 1px;
+  }
+  .filter {
+    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
   }
   .transition {
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
@@ -894,6 +907,192 @@
       margin-left: 0;
     }
   }
+  .topbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .topbar-link {
+    border: 1px solid #ffffff45;
+    padding: 7px 12px;
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: .12em;
+  }
+  .topbar-link:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+  }
+  .price-app {
+    padding: 0 4vw 4vh;
+  }
+  .price-search {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 760px;
+    margin-bottom: 16px;
+  }
+  .price-search-input {
+    background: #ffffff0a;
+    border: 1px solid #ffffff45;
+    color: var(--bone);
+    font: inherit;
+    font-size: 16px;
+    padding: 12px 14px;
+    width: 100%;
+  }
+  .price-search-input:focus {
+    outline: none;
+    border-color: var(--cyan);
+  }
+  .price-status {
+    color: #96938c;
+    font-size: 12.5px;
+    margin: 0;
+  }
+  .seed-note {
+    color: #ffb340;
+    border: 1px solid #ffb34066;
+    background: #ffb34014;
+    font-size: 12.5px;
+    line-height: 1.5;
+    margin: 0;
+    padding: 10px 12px;
+  }
+  .seed-note:empty {
+    display: none;
+  }
+  .price-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 16px;
+    align-items: start;
+  }
+  .price-results {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 120px;
+  }
+  .price-no-results {
+    color: #96938c;
+    font-size: 13.5px;
+    margin: 4px 0;
+  }
+  .price-result {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: transparent;
+    border: 1px solid #ffffff2b;
+    color: var(--bone);
+    font: inherit;
+    padding: 10px 12px;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+  }
+  .price-result:hover {
+    border-color: var(--cyan);
+  }
+  .price-result.is-active {
+    border-color: var(--cyan);
+    background: #3de1e814;
+  }
+  .price-result-main {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .price-result-name {
+    font-family: Arial,sans-serif;
+    font-size: 14.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .price-result-sub {
+    color: #96938c;
+    font-size: 11.5px;
+    letter-spacing: .06em;
+  }
+  .price-result-price {
+    color: var(--cyan);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .price-detail {
+    position: sticky;
+    top: 16px;
+  }
+  .price-icon {
+    max-width: 96px;
+    max-height: 96px;
+    margin: 4px 0 8px;
+  }
+  .price-section {
+    margin-top: 14px;
+  }
+  .price-section-title {
+    margin: 0 0 8px;
+    font-size: 11px;
+    letter-spacing: .16em;
+    color: var(--cyan);
+    text-transform: uppercase;
+  }
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 4px 0;
+    border-bottom: 1px solid #ffffff14;
+    font-size: 13.5px;
+  }
+  .price-row:last-child {
+    border-bottom: none;
+  }
+  .price-row-label {
+    color: #c9c5bb;
+  }
+  .price-row-value {
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .price-row-value.is-up {
+    color: #00c853;
+  }
+  .price-row-value.is-down {
+    color: var(--red);
+  }
+  .price-best {
+    margin-top: 14px;
+    border: 1px solid var(--cyan);
+    background: #3de1e814;
+    padding: 10px 12px;
+  }
+  .price-best-text {
+    color: var(--cyan);
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .price-verdict {
+    margin: 12px 0 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--bone);
+  }
+  @media (max-width:900px) {
+    .price-layout {
+      grid-template-columns: 1fr;
+    }
+    .price-detail {
+      position: static;
+    }
+  }
 }
 @property --tw-rotate-x {
   syntax: "*";
@@ -998,6 +1197,59 @@
   inherits: false;
   initial-value: solid;
 }
+@property --tw-blur {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-brightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-contrast {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-grayscale {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-invert {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-opacity {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-saturate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-sepia {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-drop-shadow {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-drop-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-drop-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-drop-shadow-size {
+  syntax: "*";
+  inherits: false;
+}
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
@@ -1024,6 +1276,19 @@
       --tw-ring-offset-color: #fff;
       --tw-ring-offset-shadow: 0 0 #0000;
       --tw-outline-style: solid;
+      --tw-blur: initial;
+      --tw-brightness: initial;
+      --tw-contrast: initial;
+      --tw-grayscale: initial;
+      --tw-hue-rotate: initial;
+      --tw-invert: initial;
+      --tw-opacity: initial;
+      --tw-saturate: initial;
+      --tw-sepia: initial;
+      --tw-drop-shadow: initial;
+      --tw-drop-shadow-color: initial;
+      --tw-drop-shadow-alpha: 100%;
+      --tw-drop-shadow-size: initial;
     }
   }
 }

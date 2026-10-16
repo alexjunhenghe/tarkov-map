@@ -93,6 +93,9 @@ Everything is committed as a snapshot, so the app works offline:
   precomputed SVG coordinates (`sx`/`sy`), plus the transform metadata and
   the fetch timestamp.
 - `scripts/fetch_data.py` — the refresh path (Python 3, stdlib only).
+- `data/prices.json` — the item price index behind `/items` (see
+  "Item prices" below).
+- `scripts/fetch_prices.py` — the price-index refresh path.
 
 ### Coordinate transform
 
@@ -142,6 +145,46 @@ label position on the west highway, where the extract actually is; and
 boss areas are only taken from spawn points inside the mall footprint —
 the API also tags west-highway ZoneGoshan points as Killa spawns, and
 those points render as the Scav spawns they are instead.
+
+## Item prices
+
+The `/items` page is a price lookup for ~4,000 items: flea market
+average and last-low, the flea listing fee, every trader's sell-to
+price, trader buy-from offers, price per slot, and a flea-vs-vendor
+verdict per item.
+
+**Why it is fast:** there are no live per-item API calls, ever. The
+offline pipeline (`scripts/fetch_prices.py`) produces one compact JSON
+index, `data/prices.json`, which the app embeds and serves at
+`/data/prices.json`. The page fetches that index once and runs search
+and detail rendering entirely client-side (`public/items.js`) —
+typeahead is instant, lookups cost zero network, and the page is
+immune to upstream API outages.
+
+**Data sources.** Primary: the tarkov.dev GraphQL API (flea averages,
+48h change, fees, real trader offers). Fallback: when the API is
+unreachable the script builds a **seed** index from the SPT open game
+database (github.com/sp-tarkov/server) — flea prices from its
+`prices.json` snapshot, trader sell-to prices derived from handbook
+base prices × each trader's loyalty-1 buyback percentage (the model
+SPT's own `TraderHelper` uses, gated by the categories each trader
+buys), and trader buy-from offers from the traders' assort cash
+entries (barter offers are omitted in seed mode). Seed trader prices
+are approximations of the live game; the index records its source in
+`meta.source`, and the page displays a visible "seed snapshot" note
+whenever it is serving seed data.
+
+**Refresh:**
+
+```console
+python3 scripts/fetch_prices.py
+```
+
+Then rebuild (`proa build`) — the index is embedded at compile time.
+The committed index is an SPT seed fetched 2026-10-16, because
+api.tarkov.dev was still returning "GraphQL server unavailable"; a
+refresh once the API is back replaces it with live values and restores
+the flea fields the seed cannot provide (last-low, 48h change, fee).
 
 ## Scope and limitations
 

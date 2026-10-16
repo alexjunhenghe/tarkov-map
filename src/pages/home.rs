@@ -117,7 +117,6 @@ impl HomePage {
     }
 }
 
-
 #[derive(Debug, Clone, Copy)]
 struct FloorTab {
     id: &'static str,
@@ -201,7 +200,10 @@ impl<L: DataLoader> WebRenderSync<L> for HomePage {
             <main data-map-page>
                 <header class="topbar">
                     <a class="wordmark" href="/">"TARKOV MAP"</a>
-                    <span>"PROA PROTOTYPE · INTERCHANGE"</span>
+                    <nav class="topbar-nav">
+                        <a class="topbar-link" href="/items">"Item prices"</a>
+                        <span>"PROA PROTOTYPE · INTERCHANGE"</span>
+                    </nav>
                 </header>
                 <section class="map-intro">
                     <p class="kicker">"ESCAPE FROM TARKOV · INTERACTIVE MAP"</p>
@@ -278,11 +280,18 @@ impl<L: DataLoader> WebRenderSync<L> for HomePage {
 impl<L: DataLoader, B: WriteBuf> MdRenderSync<L, B> for HomePage {
     fn render_md(self, cx: &mut WebContext<L, B>) -> Result<(), WriteError> {
         proa_macros::omit!("/static/map.js");
-        proa_macros::omit!("basemap", "Basemap SVG artwork renders only in the browser view");
+        proa_macros::omit!(
+            "basemap",
+            "Basemap SVG artwork renders only in the browser view"
+        );
         md_sync! { r###"
             /
 
             TARKOV MAP
+
+            /items
+
+            Item prices
 
             PROA PROTOTYPE · INTERCHANGE
 

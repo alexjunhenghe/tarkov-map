@@ -10,6 +10,7 @@ pub fn router(state: AppState) -> Router {
     let (router, metadata) = router_from_spec(vec![
         // proa:route-specs:start
         Route::endpoint("/", get(pages::home::handler)),
+        Route::endpoint("/items", get(pages::items::handler)),
         // proa:route-specs:end
     ]);
     let manifest = Arc::new(IslandManifest {
@@ -24,6 +25,8 @@ pub fn router(state: AppState) -> Router {
         // proa:explicit-routes:start
         .route("/index.md", get(pages::home::markdown))
         .route("/data/interchange.json", get(pages::home::data_json))
+        .route("/items.md", get(pages::items::markdown))
+        .route("/data/prices.json", get(pages::items::prices_json))
         // proa:explicit-routes:end
         .nest_service("/static", static_assets::service())
         .with_state(state)
