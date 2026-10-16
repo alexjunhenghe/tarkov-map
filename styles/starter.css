@@ -13,7 +13,7 @@
 .fit-button{margin-left:auto;background:transparent;border:1px solid #ffffff45;color:var(--bone);font:inherit;font-size:12px;letter-spacing:.12em;padding:8px 18px;cursor:pointer}
 .fit-button:hover{border-color:var(--cyan);color:var(--cyan)}
 .map-layout{display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start}
-.map-stage{position:relative;height:min(72vh,760px);min-height:420px;border:1px solid #ffffff2b;background:#0e2226;overflow:hidden;touch-action:none;cursor:grab}
+.map-stage{position:relative;height:min(72vh,760px);min-height:420px;border:1px solid #ffffff2b;background:#141f18;overflow:hidden;touch-action:none;cursor:grab}
 .map-stage:active{cursor:grabbing}
 .map-stage svg{width:100%;height:100%;display:block}
 .map-side{display:flex;flex-direction:column;gap:16px}
@@ -31,25 +31,59 @@
 .extract-link:hover{color:var(--cyan)}
 .extract-note{color:#96938c;font-size:12.5px;line-height:1.45;margin:2px 0 0}
 .map-note{color:#96938c;font-size:12px;margin-top:12px}
-/* Markers drawn into the basemap SVG */
+/* ---- Basemap restyle ----
+   The basemap SVG carries its own stylesheet (flat teal schematic).
+   These higher-specificity overrides re-skin it toward a warmer,
+   game-like cartography: grass greens, asphalt, concrete, slate
+   roofs, mall tile floors. Per-floor rules use the layer group ids. */
+.map-stage svg .land{fill:#4c6b3c}
+.map-stage svg .trees{fill:#2f5233}
+.map-stage svg .rock{fill:#8e8d84}
+.map-stage svg .water{fill:#38618f}
+.map-stage svg .cement{fill:#aeb2b5}
+.map-stage svg .tarmac{fill:#5f666d}
+.map-stage svg .gravel{fill:#8a6f4d}
+.map-stage svg .wood{fill:#6e4f2a}
+.map-stage svg .building{fill:#43484e}
+.map-stage svg .structure{fill:#555a5e}
+.map-stage svg .floor{fill:#7d838a}
+.map-stage svg .locked{fill:#4a5563}
+.map-stage svg .stairs{fill:#e8b93c}
+.map-stage svg .fence{stroke:#a8bf9f}
+.map-stage svg .road_tarmac{stroke:#a7adb3}
+.map-stage svg .road_gravel{stroke:#96754a}
+.map-stage svg .railroad{stroke:#8a5a40}
+.map-stage svg .powerline{stroke:#e6c93f}
+.map-stage svg .danger{fill:#e5322d;fill-opacity:.34;stroke:#e5322d}
+.map-stage svg #First_Floor .floor{fill:#82888f}
+.map-stage svg #First_Floor .building{fill:#33373d}
+.map-stage svg #Second_Floor .floor{fill:#787e86}
+.map-stage svg #Second_Floor .building{fill:#2e3238}
+.map-stage svg #Ground_Level .building{fill:#494f57}
+
+/* Markers drawn into the basemap SVG: teardrop pins with icons */
 .marker{cursor:pointer}
-.marker:hover .core{stroke:#ffffff;stroke-width:2.4}
-.marker:hover .hit{fill:#ffffff1f}
 .marker .hit{fill:transparent}
-.marker .core{stroke:#0b0b0c;stroke-width:1.2}
-.marker.cat-extract .core{fill:#00e599}
-.marker.cat-transit .core{fill:#e53500}
-.marker.cat-pmc_spawn .core{fill:#3de1e8}
-.marker.cat-scav_spawn .core{fill:#ffb340}
-.marker.cat-boss .core{fill:#ff3b30}
-.marker.cat-lock .core{fill:#c792ff}
-.marker.cat-switch .core{fill:#ffe14d}
-.marker.cat-hazard .core{fill:#ff7847}
-.marker.cat-loot .core{fill:#9aa3ad}
-.marker.is-selected .core{stroke:var(--cyan);stroke-width:2.6}
-.marker.is-cluster .core{fill:#5b6670}
-.cluster-count{fill:#e5e1d6;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;pointer-events:none}
-.map-label{fill:#e5e1d6;font-family:Arial,sans-serif;font-size:13px;font-weight:600;paint-order:stroke;stroke:#0b0b0ccc;stroke-width:3px;pointer-events:none}
+.marker:hover .hit{fill:#ffffff1f}
+.marker .pin{stroke:#101314;stroke-width:1.1}
+.marker:hover .pin{stroke:#ffffff;stroke-width:1.8}
+.marker .pin-shadow{fill:#000;opacity:.32}
+.marker .pin-icon{stroke:#fff;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.marker .pin-icon-fill{fill:#fff;stroke:none;pointer-events:none}
+.marker.cat-extract .pin{fill:#00c853}
+.marker.cat-transit .pin{fill:#e53500}
+.marker.cat-pmc_spawn .pin{fill:#29b6d8}
+.marker.cat-scav_spawn .pin{fill:#f5a623}
+.marker.cat-boss .pin{fill:#e5322d}
+.marker.cat-lock .pin{fill:#9b6dd6}
+.marker.cat-switch .pin{fill:#e6c619}
+.marker.cat-hazard .pin{fill:#ef6c2a}
+.marker.cat-loot .pin{fill:#7d8894}
+.marker.is-selected .pin{stroke:#ffffff;stroke-width:2.2}
+.marker .badge{fill:#39424c;stroke:#e5e1d6;stroke-width:1.2}
+.marker:hover .badge{stroke:#ffffff;stroke-width:1.8}
+.cluster-count{fill:#fff;font-family:ui-monospace,Menlo,monospace;font-size:9.5px;font-weight:700;pointer-events:none}
+.map-label{fill:#f5f2e9;font-family:Arial,sans-serif;font-size:14px;font-weight:700;letter-spacing:.01em;paint-order:stroke;stroke:#0b0b0cd9;stroke-width:3.5px;pointer-events:none}
 @keyframes marker-pulse{0%{opacity:1}50%{opacity:.45}100%{opacity:1}}
-.marker.cat-extract .core{animation:marker-pulse 2.2s ease-in-out infinite}
+.marker.cat-extract .pin{animation:marker-pulse 2.2s ease-in-out infinite}
 @media(max-width:900px){.map-layout{grid-template-columns:1fr}.map-stage{height:56vh;min-height:340px}.fit-button{margin-left:0}}
