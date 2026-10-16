@@ -445,7 +445,7 @@
     // ---------- init ----------
     setFloor("exterior", false);
     applyView();
-    fetch("data/interchange.json")
+    fetch("data/interchange.json?v=695ecba")
         .then((resp) => {
             if (!resp.ok) throw new Error(`snapshot fetch failed: ${resp.status}`);
             return resp.json();
