@@ -157,6 +157,16 @@ EXTRACT_FLOORS = {
     "smugglers' tunnel": "garage",
 }
 
+# Position overrides, same spirit as EXTRACT_FLOORS. The upstream API's
+# Scav Camp (Co-Op) entry — both its position (-97, -73) and its zone
+# outline — sits inside the mall, but the extract is the camp on the
+# west highway: the tarkov.dev map config's own "Scav Camp" label sits
+# at (263, -11), which is where the in-game extract and every community
+# map place it. Use the label's position (the entry's height is kept).
+EXTRACT_POSITION_OVERRIDES = {
+    "scav camp (co-op)": (263.2, -11.1),
+}
+
 # The Saferoom's own door lock shares the extract's corridor level.
 LOCK_FLOOR_OVERRIDES = {
     "object #11sr keycard": "mall1",
@@ -269,6 +279,15 @@ def build_snapshot(map_data, cfg, view_box, source_note=None, fetched_at=None):
                     mall_bounds = pts
                     break
 
+    def inside_mall(pos):
+        if not mall_bounds:
+            return False
+        (x0, z0), (x1, z1) = mall_bounds
+        return (
+            min(x0, x1) <= pos["x"] <= max(x0, x1)
+            and min(z0, z1) <= pos["z"] <= max(z0, z1)
+        )
+
     def marker(name, category, pos, note="", floor_override=None):
         sx, sy = projector(pos)
         sx = min(max(sx, 4.0), view_box[0] - 4.0)
@@ -293,6 +312,10 @@ def build_snapshot(map_data, cfg, view_box, source_note=None, fetched_at=None):
         if not ex.get("position"):
             continue
         name = ex.get("name") or "Extract"
+        pos = ex["position"]
+        override_xz = EXTRACT_POSITION_OVERRIDES.get(name.strip().lower())
+        if override_xz:
+            pos = {**pos, "x": override_xz[0], "z": override_xz[1]}
         parts = []
         curated = EXTRACT_NOTES.get(name.strip().lower())
         if curated:
@@ -315,7 +338,7 @@ def build_snapshot(map_data, cfg, view_box, source_note=None, fetched_at=None):
             marker(
                 name,
                 "extract",
-                ex["position"],
+                pos,
                 " ".join(parts),
                 EXTRACT_FLOORS.get(name.strip().lower()),
             )
@@ -342,6 +365,15 @@ def build_snapshot(map_data, cfg, view_box, source_note=None, fetched_at=None):
         zone = spawn.get("zoneName")
         if "boss" in categories:
             matched = [b for b in bosses if zone in boss_spawn_keys(b)]
+            # Killa and Tagilla spawn inside the mall complex, but the
+            # game's bot zones bleed outside it — ZoneGoshan points sit
+            # on the west highway by Scav Camp — and the API tags those
+            # points 'boss' too. Rendering them puts red boss dots on
+            # the highway. Only points inside the mall footprint become
+            # boss areas; the rest fall back to the Scav spawns they
+            # also are.
+            if matched and not inside_mall(pos):
+                matched = []
             if not matched:
                 if "bot" in categories and "scav" in sides:
                     markers.append(

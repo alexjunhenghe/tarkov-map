@@ -135,6 +135,14 @@ Tagilla), 28 locks (15 keyed doors), 6 switches, 25 hazards, 823 loot
 containers. Switch notes are name-only in this snapshot — the export lacks
 activation links; a live-API refresh restores them.
 
+Two upstream data errors are corrected in `scripts/fetch_data.py` (and
+survive refreshes): the API's Scav Camp (Co-Op) extract position sits
+inside the mall, so it is overridden to the map config's "Scav Camp"
+label position on the west highway, where the extract actually is; and
+boss areas are only taken from spawn points inside the mall footprint —
+the API also tags west-highway ZoneGoshan points as Killa spawns, and
+those points render as the Scav spawns they are instead.
+
 ## Scope and limitations
 
 - **Parking Garage basemap**: the upstream SVG has no standalone garage

@@ -537,11 +537,11 @@
    "category": "extract",
    "floor": "exterior",
    "note": "Co-op extract. A PMC and a Scav must be in the extract zone at the same time for it to work. Shared extract.",
-   "sx": 760.7,
-   "sy": 544.53,
-   "gx": -97.48,
+   "sx": 366.2,
+   "sy": 476.9,
+   "gx": 263.2,
    "gy": 18.12,
-   "gz": -73.09
+   "gz": -11.1
   },
   {
    "name": "Path to River (Flare)",
@@ -2205,10 +2205,10 @@
    "gz": -73.64
   },
   {
-   "name": "Killa spawn area",
-   "category": "boss",
+   "name": "Scav spawn — ZoneGoshan",
+   "category": "scav_spawn",
    "floor": "exterior",
-   "note": "Boss can spawn here: Killa (60% spawn chance).",
+   "note": "Scav spawn point.",
    "sx": 377.45,
    "sy": 447.79,
    "gx": 252.91,
@@ -2810,10 +2810,10 @@
    "gz": -391.088684
   },
   {
-   "name": "Killa spawn area",
-   "category": "boss",
+   "name": "Scav spawn — ZoneGoshan",
+   "category": "scav_spawn",
    "floor": "exterior",
-   "note": "Boss can spawn here: Killa (60% spawn chance).",
+   "note": "Scav spawn point.",
    "sx": 346.75,
    "sy": 434.17,
    "gx": 280.98,
