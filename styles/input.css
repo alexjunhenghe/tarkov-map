@@ -1,0 +1,4 @@
+@layer theme, base, proa-compat, components, utilities;
+@import "tailwindcss";
+@import "./starter.css" layer(components);
+@source "../src/**/*.rs";

@@ -1,0 +1,108 @@
+{
+  "components": {
+    "@proa/badge": {
+      "cargoDependencies": [],
+      "dependencies": [],
+      "files": {
+        "src/components/badge/badge.rs": "sha256:1f06b9888f39b273999369c538eef0cead1d2462fbebb0fdbacc4f5b54f62a80",
+        "src/components/badge/md.rs": "sha256:d77c9551ac392d5de67ba90542a314a7a4a85fe615e0ef488bd18376c0399864",
+        "src/components/badge/mod.rs": "sha256:1c5b5fdd45c6cb48ccf2d434ff3ebf44cb4ddc887edfa9cb80149d84132b84bc",
+        "src/components/badge/recipe.rs": "sha256:fa6cb6603d460ecd72f7c49238548eab2c7cee87f013563f4756b22125b15f15"
+      },
+      "installedFiles": [
+        "src/components/badge/badge.rs",
+        "src/components/badge/md.rs",
+        "src/components/badge/mod.rs",
+        "src/components/badge/recipe.rs"
+      ],
+      "localHashAtInstall": "sha256:43319fb2f9819020cbc795ac5e789cc19ddbe82d3193db54d4b6ed3351c41263",
+      "mode": "source",
+      "registry": "@proa",
+      "rustModules": [],
+      "sourceHash": "sha256:43319fb2f9819020cbc795ac5e789cc19ddbe82d3193db54d4b6ed3351c41263",
+      "sourceVersion": "0.1.3",
+      "version": "0.1.3"
+    },
+    "@proa/button": {
+      "cargoDependencies": [],
+      "dependencies": [],
+      "files": {
+        "src/components/button/button.rs": "sha256:332afce9f80b7298e8cd853bc116b1b403c41ea3ca74220bd226046b3fed777e",
+        "src/components/button/md.rs": "sha256:2bcbb0c831ef8cb61b2cee199a2bcc60739fb8b6c2321bbb3ef50a237a504105",
+        "src/components/button/mod.rs": "sha256:a36b5f8232710a58d9a123b47e6a9734f04ab15ac17a48da41edfa9897a5b7b7",
+        "src/components/button/recipe.rs": "sha256:7e9e8423ccfac36639ecb2a53c5e7da6a7707a099221974d1acf619df9584a04"
+      },
+      "installedFiles": [
+        "src/components/button/button.rs",
+        "src/components/button/md.rs",
+        "src/components/button/mod.rs",
+        "src/components/button/recipe.rs"
+      ],
+      "localHashAtInstall": "sha256:16ddb3b301b30c372d0da5b15f521fdad10a46229760c22575c9d920c641c3e9",
+      "mode": "source",
+      "registry": "@proa",
+      "rustModules": [],
+      "sourceHash": "sha256:16ddb3b301b30c372d0da5b15f521fdad10a46229760c22575c9d920c641c3e9",
+      "sourceVersion": "0.1.3",
+      "version": "0.1.3"
+    },
+    "@proa/card": {
+      "cargoDependencies": [],
+      "dependencies": [],
+      "files": {
+        "src/components/card/card.rs": "sha256:ff656f5c7f884105d94fbad0c5a6036bcab30f7955594bbf805d3f1fe7edde90",
+        "src/components/card/md.rs": "sha256:c98eead4349dfbaeb5caa1b9e9e86a88db14f3a4762f1ec3246b805ff0456f20",
+        "src/components/card/mod.rs": "sha256:c086d270170e1471d01358528f0c1101323e2b772dcd731835c0996ecd1f4e45",
+        "src/components/card/recipe.rs": "sha256:16633bc55076c25682d78ce85aa79149a82ed8064b700498316922f23c070d57"
+      },
+      "installedFiles": [
+        "src/components/card/card.rs",
+        "src/components/card/md.rs",
+        "src/components/card/mod.rs",
+        "src/components/card/recipe.rs"
+      ],
+      "localHashAtInstall": "sha256:e49c3592b0f59866303cd2710198092b08abed1d2836b21d17448297a5465ad8",
+      "mode": "source",
+      "registry": "@proa",
+      "rustModules": [],
+      "sourceHash": "sha256:e49c3592b0f59866303cd2710198092b08abed1d2836b21d17448297a5465ad8",
+      "sourceVersion": "0.1.3",
+      "version": "0.1.3"
+    }
+  },
+  "scaffold": {
+    "capabilities": [
+      {
+        "id": "base:site",
+        "planVersion": 1
+      },
+      {
+        "id": "server:axum",
+        "planVersion": 1
+      },
+      {
+        "id": "database:sqlite",
+        "planVersion": 1
+      },
+      {
+        "id": "representation:markdown",
+        "planVersion": 1
+      },
+      {
+        "id": "ui:proa",
+        "planVersion": 1
+      },
+      {
+        "id": "styling:tailwind",
+        "planVersion": 1
+      },
+      {
+        "id": "starter:guided",
+        "planVersion": 1
+      }
+    ],
+    "cliVersion": "0.1.3",
+    "release": "0.1.3"
+  },
+  "schemaVersion": 1
+}

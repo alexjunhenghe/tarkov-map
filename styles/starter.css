@@ -1,0 +1,53 @@
+:root{color-scheme:dark;--ink:#0b0b0c;--bone:#e5e1d6;--cyan:#3de1e8;--red:#ff3b30}*{box-sizing:border-box}body{margin:0;background:var(--ink);color:var(--bone);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}a{color:inherit}.topbar{height:58px;border-bottom:1px solid #ffffff2b;display:flex;align-items:center;justify-content:space-between;padding:0 4vw;font-size:11px;letter-spacing:.15em}.wordmark{font-size:22px;font-weight:900;color:var(--cyan);text-decoration:none}.hero{min-height:62vh;padding:8vh 4vw 6vh;display:grid;align-content:center;background-image:linear-gradient(#ffffff0a 1px,transparent 1px),linear-gradient(90deg,#ffffff0a 1px,transparent 1px);background-size:48px 48px}.kicker,.metric-label,.card-eyebrow{color:var(--cyan);font-size:11px;letter-spacing:.18em}.hero h1{max-width:1050px;margin:.4em 0 .25em;font-family:Arial,sans-serif;font-size:clamp(54px,8vw,124px);line-height:.84;text-transform:uppercase;letter-spacing:-.065em}.lede{max-width:760px;color:#aaa69e;font-family:Arial,sans-serif;font-size:20px;line-height:1.5}.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.status-pill{display:inline-flex;align-items:center;gap:8px;border:1px solid #ffffff45;padding:8px 10px;font-size:10px;letter-spacing:.12em}.status-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}.hero-action{margin-top:28px}.metrics{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #ffffff2b}.metric-card{min-height:210px;padding:28px;border-right:1px solid #ffffff2b}.metric-card h2,.metric-value{font-family:Arial,sans-serif;font-size:40px;font-weight:800;margin:20px 0}.metric-note,.metric-card>p:last-child{color:#96938c;line-height:1.5}.receipt{position:sticky;bottom:0;display:flex;gap:28px;justify-content:flex-end;background:var(--bone);color:var(--ink);padding:12px 4vw;font-size:10px;letter-spacing:.08em}.receipt strong{color:#b44e00}@media(max-width:760px){.metrics{grid-template-columns:1fr}.hero h1{font-size:52px}.receipt{position:static;flex-wrap:wrap;justify-content:flex-start}}
+
+/* ---- Tarkov Map: Interchange ---- */
+.map-intro{padding:5vh 4vw 3vh}
+.map-title{margin:.3em 0 .2em;font-family:Arial,sans-serif;font-size:clamp(40px,6vw,84px);line-height:.9;text-transform:uppercase;letter-spacing:-.04em}
+.map-app{padding:0 4vw 4vh}
+.map-toolbar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.floor-tabs{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.toolbar-label{font-size:11px;letter-spacing:.18em;color:var(--cyan)}
+.floor-tab{background:transparent;border:1px solid #ffffff45;color:var(--bone);font:inherit;font-size:12px;letter-spacing:.08em;padding:8px 14px;cursor:pointer}
+.floor-tab:hover{border-color:var(--cyan)}
+.floor-tab.is-active{background:var(--cyan);color:var(--ink);border-color:var(--cyan);font-weight:700}
+.fit-button{margin-left:auto;background:transparent;border:1px solid #ffffff45;color:var(--bone);font:inherit;font-size:12px;letter-spacing:.12em;padding:8px 18px;cursor:pointer}
+.fit-button:hover{border-color:var(--cyan);color:var(--cyan)}
+.map-layout{display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start}
+.map-stage{position:relative;height:min(72vh,760px);min-height:420px;border:1px solid #ffffff2b;background:#0e2226;overflow:hidden;touch-action:none;cursor:grab}
+.map-stage:active{cursor:grabbing}
+.map-stage svg{width:100%;height:100%;display:block}
+.map-side{display:flex;flex-direction:column;gap:16px}
+.side-panel{border:1px solid #ffffff2b;padding:16px}
+.side-panel h2{margin:0 0 12px;font-size:12px;letter-spacing:.18em;color:var(--cyan);text-transform:uppercase}
+.layer-list{display:flex;flex-direction:column;gap:8px}
+.layer-toggle{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer}
+.layer-toggle input{accent-color:var(--cyan)}
+.layer-count{margin-left:auto;color:#96938c;font-size:12px}
+.detail-name{font-family:Arial,sans-serif;font-size:19px;font-weight:700;margin:0 0 4px}
+.detail-meta{color:var(--cyan);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 8px;min-height:14px}
+.detail-note{color:#c9c5bb;line-height:1.5;margin:0;font-size:13.5px}
+.extract-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.extract-link{background:none;border:none;color:var(--bone);font:inherit;font-size:14px;font-weight:700;cursor:pointer;padding:0;text-align:left}
+.extract-link:hover{color:var(--cyan)}
+.extract-note{color:#96938c;font-size:12.5px;line-height:1.45;margin:2px 0 0}
+.map-note{color:#96938c;font-size:12px;margin-top:12px}
+/* Markers drawn into the basemap SVG */
+.marker{cursor:pointer}
+.marker .hit{fill:transparent}
+.marker .core{stroke:#0b0b0c;stroke-width:1.2}
+.marker.cat-extract .core{fill:#00e599}
+.marker.cat-transit .core{fill:#e53500}
+.marker.cat-pmc_spawn .core{fill:#3de1e8}
+.marker.cat-scav_spawn .core{fill:#ffb340}
+.marker.cat-boss .core{fill:#ff3b30}
+.marker.cat-lock .core{fill:#c792ff}
+.marker.cat-switch .core{fill:#ffe14d}
+.marker.cat-hazard .core{fill:#ff7847}
+.marker.cat-loot .core{fill:#9aa3ad}
+.marker.is-selected .core{stroke:var(--cyan);stroke-width:2.6}
+.marker.is-cluster .core{fill:#5b6670}
+.cluster-count{fill:#e5e1d6;font-family:ui-monospace,Menlo,monospace;font-size:9px;font-weight:700;pointer-events:none}
+.map-label{fill:#e5e1d6;font-family:Arial,sans-serif;font-size:13px;font-weight:600;paint-order:stroke;stroke:#0b0b0ccc;stroke-width:3px;pointer-events:none}
+@keyframes marker-pulse{0%{opacity:1}50%{opacity:.45}100%{opacity:1}}
+.marker.cat-extract .core{animation:marker-pulse 2.2s ease-in-out infinite}
+@media(max-width:900px){.map-layout{grid-template-columns:1fr}.map-stage{height:56vh;min-height:340px}.fit-button{margin-left:0}}
