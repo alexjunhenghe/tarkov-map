@@ -57,6 +57,7 @@
     let builtCluster = null; // cluster mode used by the last buildMarkers()
     let markerEls = []; // {el, marker}
     let selectedEl = null;
+    let userMoved = false; // true once the user pans/zooms manually
     const enabledCategories = new Set();
 
     // ---------- view / camera ----------
@@ -186,7 +187,10 @@
         document.querySelectorAll("[data-floor-tab]").forEach((btn) => {
             btn.classList.toggle("is-active", btn.dataset.floorTab === floor);
         });
-        if (refit) fitFloor(floor);
+        if (refit) {
+            userMoved = false;
+            fitFloor(floor);
+        }
         refreshMarkerVisibility();
     }
 
@@ -320,6 +324,7 @@
     // when the pointer leaves the stage.
     stage.addEventListener("pointerdown", (event) => {
         pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+        userMoved = true;
         dragMoved = false;
         lastPinchDist = null;
     });
@@ -376,6 +381,7 @@
         "wheel",
         (event) => {
             event.preventDefault();
+            userMoved = true;
             const point = clientToSvg(event.clientX, event.clientY);
             zoomAt(point, event.deltaY > 0 ? 1.15 : 1 / 1.15);
             scheduleClusterRebuild();
@@ -396,6 +402,7 @@
         btn.addEventListener("click", () => setFloor(btn.dataset.floorTab, true));
     });
     document.querySelector("[data-fit-button]")?.addEventListener("click", () => {
+        userMoved = false;
         fitFloor(activeFloor);
     });
 
@@ -417,6 +424,7 @@
             );
             if (!marker) return;
             setFloor(marker.floor, false);
+            userMoved = true; // a deliberate jump: don't refit over it
             setView(marker.sx, marker.sy, 320);
             const found = markerEls.find(
                 ({ marker: m }) => m === marker || (m.name === marker.name && m.category === "extract"),
@@ -425,7 +433,14 @@
         });
     });
 
-    window.addEventListener("resize", applyView);
+    window.addEventListener("resize", () => {
+        // Until the user takes over the camera, keep the floor fitted:
+        // the stage's aspect can still be settling while the page loads
+        // (fonts, scrollbar, sidebar layout), and a fit computed against
+        // a stale aspect leaves the map cropped.
+        if (!userMoved && snapshot) fitFloor(activeFloor);
+        else applyView();
+    });
 
     // ---------- init ----------
     setFloor("exterior", false);
@@ -446,6 +461,15 @@
             });
             buildMarkers();
             fitFloor("exterior");
+            // Refit once layout has settled (see the resize handler):
+            // the first fit can run before the stage reaches its final
+            // size, which cropped the map's top and bottom on load.
+            requestAnimationFrame(() => {
+                if (!userMoved) fitFloor(activeFloor);
+            });
+            setTimeout(() => {
+                if (!userMoved) fitFloor(activeFloor);
+            }, 350);
         })
         .catch((error) => {
             document.getElementById("detail-note").textContent =
