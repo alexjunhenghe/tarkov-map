@@ -12,6 +12,29 @@ overlay and does not interact with the game in any way.
 
 Unofficial fan tool — not affiliated with Battlestate Games.
 
+## Live demo
+
+**https://alexjunhenghe.github.io/tarkov-map/** — a static deployment of
+this Proa build, published from the `gh-pages` branch. The app is
+snapshot-driven (marker data is embedded at build time and interactivity
+is client-side), so the static deployment behaves like the server-rendered
+page. To redeploy after a data or code change, re-render the page from a
+running server and republish the captured HTML/JSON/static assets to
+`gh-pages` with asset paths made relative.
+
+## Deploy the server (Railway)
+
+Proa's recommended target. The repo is prepped: `Dockerfile` and
+`railway.json` are adapted from Proa's Railway guide, and the app already
+reads `PORT`/`PROA_HOST` and answers `/healthz` and `/readyz`.
+
+1. Create a Railway project and connect this GitHub repo (Railway builds
+   the Dockerfile on every push to `main`).
+2. In the service, open Settings → Networking → Generate Domain.
+3. Optional: after the first deploy, add the guide's BuildKit cache
+   mounts (keyed with your Railway service id) to the Dockerfile to speed
+   up rebuilds.
+
 ## Run it
 
 Prerequisites: a Rust toolchain and the Proa CLI.
