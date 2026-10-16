@@ -1,0 +1,8 @@
+target/
+.git/
+.github/
+data/*.db
+data/*.db-shm
+data/*.db-wal
+*.md
+!README.md
